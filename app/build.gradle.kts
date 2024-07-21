@@ -1,20 +1,20 @@
-plugins {
-    kotlin("jvm")
-    kotlin("plugin.serialization")
-    id("io.ktor.plugin")
-    id("org.jetbrains.kotlin.kapt")
-}
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+    kotlin("jvm") version "1.9.0"
+    kotlin("plugin.serialization") version "1.9.0"
+    id("io.ktor.plugin") version "2.3.12"
+    id("org.jetbrains.kotlin.kapt") version "1.9.0"
+}
 
 repositories {
     mavenCentral()
 }
 
 val ktorVersion = "2.3.12"
-val daggerVersion = "2.44"
+val daggerVersion = "2.46"
 val coroutineVersion = "1.5.2"
 val kotlinVersion = "1.9.0"
-val timberVersion = "5.0.1"
 
 dependencies {
     // coroutine
@@ -33,9 +33,10 @@ dependencies {
     // tests
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+}
 
-    // timber
-    implementation("com.jakewharton.timber:timber:$timberVersion")
+kapt {
+    correctErrorTypes = true
 }
 
 application {

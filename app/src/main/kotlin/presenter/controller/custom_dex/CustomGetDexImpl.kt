@@ -6,8 +6,9 @@ import io.ktor.server.application.*
 import io.ktor.server.response.*
 import presenter.controller.handleErrors
 import utils.Result
+import javax.inject.Inject
 
-class CustomGetDexImpl(
+class CustomGetDexImpl @Inject constructor(
     private val getCustomDex: GetCustomDex,
     private val getFirstFilterList: GetFirstFilterList,
     private val getPkmCatch: GetPkmCatch,

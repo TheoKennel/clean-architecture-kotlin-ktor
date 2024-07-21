@@ -8,8 +8,9 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import presenter.controller.handleErrors
 import utils.Result
+import javax.inject.Inject
 
-class CounterImpl(
+class CounterImpl @Inject constructor(
     private val getCounter: GetCounters,
     private val saveOrUpdateCounters: SaveOrUpdateCounters,
 ) : Counter {

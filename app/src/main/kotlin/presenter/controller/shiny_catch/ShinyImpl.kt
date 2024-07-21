@@ -10,8 +10,9 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import presenter.controller.handleErrors
 import utils.Result
+import javax.inject.Inject
 
-class ShinyImpl(
+class ShinyImpl @Inject constructor(
     private val deleteShiny: DeleteShiny,
     private val getShinyDomain: GetShiny,
     private val saveOrUpdateShiny: SaveOrUpdateShiny,
