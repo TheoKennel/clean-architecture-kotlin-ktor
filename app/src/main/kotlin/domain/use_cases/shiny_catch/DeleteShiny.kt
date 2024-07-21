@@ -1,7 +1,6 @@
 package domain.use_cases.shiny_catch
 
 import domain.error.ErrorHandler
-import domain.use_cases.dex.DeleteShiny
 import utils.UtilsResult
 
 fun interface DeleteShiny {
