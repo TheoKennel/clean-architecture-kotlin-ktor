@@ -1,5 +1,7 @@
 package data.repository
 
+import data.firebase.user.UserFirebaseRepository
+import data.handleFirebaseOperationWithErrorCode
 import domain.error.ErrorHandler
 import domain.models.User
 import domain.use_cases.user.*
@@ -9,7 +11,7 @@ import domain.use_cases.user.GetUserByIdImpl
 import domain.use_cases.user.SaveUserImpl
 import utils.UtilsResult
 
-internal class UserRepositoryImpl() :
+internal class UserRepositoryImpl(private val dbRepository: UserFirebaseRepository) :
     DeleteUserByIdImpl.UserRepository,
     GetAllUserImpl.UserRepository,
     GetUserByIdImpl.UserRepository,
@@ -17,22 +19,32 @@ internal class UserRepositoryImpl() :
     UpdateUserByIdImpl.UserRepository
 {
     override suspend fun deleteUserById(userId: String): UtilsResult<Unit, ErrorHandler> {
-        TODO("Not yet implemented")
+        return handleFirebaseOperationWithErrorCode {
+            dbRepository.delete(userId)
+        }
     }
 
     override suspend fun getAll(): UtilsResult<List<User>, ErrorHandler> {
-        TODO("Not yet implemented")
+        return handleFirebaseOperationWithErrorCode {
+            dbRepository.getAll()
+        }
     }
 
     override suspend fun getUserById(userId: String): UtilsResult<User, ErrorHandler> {
-        TODO("Not yet implemented")
+        return handleFirebaseOperationWithErrorCode {
+            dbRepository.get(userId)
+        }
     }
 
     override suspend fun save(user: User): UtilsResult<Unit, ErrorHandler> {
-        TODO("Not yet implemented")
+        return handleFirebaseOperationWithErrorCode {
+            dbRepository.save(user)
+        }
     }
 
     override suspend fun updateUser(userId: String, user: User): UtilsResult<Unit, ErrorHandler> {
-        TODO("Not yet implemented")
+        return handleFirebaseOperationWithErrorCode {
+            dbRepository.update(userId, user)
+        }
     }
 }

@@ -15,6 +15,7 @@ val ktorVersion = "2.3.12"
 val daggerVersion = "2.46"
 val coroutineVersion = "1.5.2"
 val kotlinVersion = "1.9.0"
+val firebaseVersion = "8.1.0"
 
 dependencies {
     // coroutine
@@ -22,7 +23,6 @@ dependencies {
     // dagger
     implementation("com.google.dagger:dagger:$daggerVersion")
     kapt("com.google.dagger:dagger-compiler:$daggerVersion")
-
     // ktor
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common-jvm:$ktorVersion")
@@ -33,6 +33,8 @@ dependencies {
     // tests
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    // firebase
+    implementation("com.google.firebase:firebase-admin:$firebaseVersion")
 }
 
 kapt {
