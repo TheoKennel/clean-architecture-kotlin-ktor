@@ -6,15 +6,15 @@ import utils.Result
 import utils.UtilsResult
 
 fun interface GetUserById {
-    suspend operator fun invoke(): Result<User, ErrorHandler>
+    suspend operator fun invoke(userId: String): Result<User, ErrorHandler>
 }
 
 internal class GetUserByIdImpl(
     private val userRepository: UserRepository,
 ) : GetUserById {
 fun interface UserRepository {
-        suspend fun getUserById(): UtilsResult<User, ErrorHandler>
+        suspend fun getUserById(userId: String): UtilsResult<User, ErrorHandler>
     }
 
-    override suspend fun invoke(): UtilsResult<User, ErrorHandler> = userRepository.getUserById()
+    override suspend fun invoke(userId: String): UtilsResult<User, ErrorHandler> = userRepository.getUserById(userId)
 }
