@@ -7,8 +7,9 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import presenter.controller.handleErrors
 import utils.Result
+import javax.inject.Inject
 
-class CustomSaveDexImpl(
+class CustomSaveDexImpl @Inject constructor(
     private val saveOrUpdateCustomDexName: SaveOrUpdateCustomDexName,
     private val saveOrUpdateFirstFilterList: SaveOrUpdateFirstFilterList,
     private val saveOrUpdatePkmCatch: SaveOrUpdatePkmCatch,

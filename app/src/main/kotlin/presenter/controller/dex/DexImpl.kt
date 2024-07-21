@@ -8,8 +8,9 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import presenter.controller.handleErrors
 import utils.Result
+import javax.inject.Inject
 
-class DexImpl(
+class DexImpl @Inject constructor(
     private val getDex: GetDex,
     private val saveOrUpdateMainDex: SaveOrUpdateMainDex,
 ) : Dex {

@@ -4,13 +4,13 @@ import domain.models.User
 import domain.use_cases.user.*
 import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.plugins.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import presenter.controller.handleErrors
 import utils.Result
+import javax.inject.Inject
 
-class UserImpl(
+class UserImpl @Inject constructor(
     private val deleteUserById: DeleteUserById,
     private val getAllUsers: GetAllUsers,
     private val getUserById: GetUserById,
