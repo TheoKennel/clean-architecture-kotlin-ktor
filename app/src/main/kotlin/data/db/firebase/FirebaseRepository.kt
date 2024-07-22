@@ -1,4 +1,4 @@
-package data.firebase
+package data.db.firebase
 
 import domain.error.ErrorHandler
 import utils.UtilsResult

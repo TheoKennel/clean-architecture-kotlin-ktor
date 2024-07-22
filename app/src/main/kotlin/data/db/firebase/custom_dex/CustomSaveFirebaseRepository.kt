@@ -1,4 +1,4 @@
-package data.firebase.custom_dex
+package data.db.firebase.custom_dex
 
 import utils.UtilsResult
 import domain.error.ErrorHandler

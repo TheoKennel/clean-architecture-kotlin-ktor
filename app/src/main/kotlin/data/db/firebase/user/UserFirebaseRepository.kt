@@ -1,6 +1,6 @@
-package data.firebase.user
+package data.db.firebase.user
 
-import data.firebase.FirebaseRepository
+import data.db.firebase.FirebaseRepository
 import domain.error.ErrorHandler
 import domain.models.User
 import utils.UtilsResult

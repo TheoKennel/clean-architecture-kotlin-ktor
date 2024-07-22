@@ -1,7 +1,7 @@
 package data.repository
 
-import data.firebase.shiny_catch.ShinyFirebaseRepository
-import data.handleFirebaseOperationWithErrorCode
+import data.db.firebase.shiny_catch.ShinyFirebaseRepository
+import data.db.firebase.handleFirebaseOperationWithErrorCode
 import domain.error.ErrorHandler
 import domain.models.ShinyCatch
 import domain.use_cases.shiny_catch.DeleteShinyImpl

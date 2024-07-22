@@ -1,7 +1,7 @@
 package data.repository
 
-import data.firebase.counter.CountersFirebaseRepository
-import data.handleFirebaseOperationWithErrorCode
+import data.db.firebase.counter.CountersFirebaseRepository
+import data.db.firebase.handleFirebaseOperationWithErrorCode
 import domain.error.ErrorHandler
 import domain.models.Counter
 import domain.use_cases.counters.GetCountersImpl

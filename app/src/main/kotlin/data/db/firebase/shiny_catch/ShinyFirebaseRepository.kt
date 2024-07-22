@@ -1,6 +1,6 @@
-package data.firebase.shiny_catch
+package data.db.firebase.shiny_catch
 
-import data.firebase.FirebaseRepository
+import data.db.firebase.FirebaseRepository
 import domain.error.ErrorHandler
 import domain.models.ShinyCatch
 import utils.UtilsResult

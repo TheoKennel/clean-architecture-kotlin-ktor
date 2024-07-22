@@ -1,6 +1,6 @@
-package data.firebase.counter
+package data.db.firebase.counter
 
-import data.firebase.FirebaseRepository
+import data.db.firebase.FirebaseRepository
 import domain.error.ErrorHandler
 import domain.models.Counter
 import utils.UtilsResult
