@@ -1,4 +1,4 @@
-package data
+package data.db.firebase
 
 import com.google.firebase.FirebaseException
 import domain.error.ErrorHandler

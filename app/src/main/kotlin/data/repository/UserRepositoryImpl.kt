@@ -1,7 +1,7 @@
 package data.repository
 
-import data.firebase.user.UserFirebaseRepository
-import data.handleFirebaseOperationWithErrorCode
+import data.db.firebase.user.UserFirebaseRepository
+import data.db.firebase.handleFirebaseOperationWithErrorCode
 import domain.error.ErrorHandler
 import domain.models.User
 import domain.use_cases.user.*
