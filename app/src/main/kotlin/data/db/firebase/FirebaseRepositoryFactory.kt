@@ -28,4 +28,3 @@ internal class FirebaseRepositoryFactory : RepositoryFactory {
     override fun createUserRepository(): UserRepository {
         return FirebaseUserRepoImpl()
     }
-}
