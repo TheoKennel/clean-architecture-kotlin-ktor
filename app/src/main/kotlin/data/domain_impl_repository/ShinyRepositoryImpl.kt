@@ -1,33 +1,38 @@
-package data.repository
+package data.domain_impl_repository
 
-import data.db.firebase.shiny_catch.ShinyFirebaseRepository
-import data.db.firebase.handleFirebaseOperationWithErrorCode
+import data.db.factory.RepositoryFactoryProvider
+import data.db.handleOperationWithErrorCode
 import domain.error.ErrorHandler
 import domain.models.ShinyCatch
 import domain.use_cases.shiny_catch.DeleteShinyImpl
 import domain.use_cases.shiny_catch.GetShinyImpl
 import domain.use_cases.shiny_catch.SaveOrUpdateShinyImpl
+import utils.Constants
 import utils.UtilsResult
 
-internal class ShinyRepositoryImpl(private val dbRepository: ShinyFirebaseRepository) :
+internal class ShinyRepositoryImpl :
     DeleteShinyImpl.ShinyRepository,
     GetShinyImpl.ShinyRepository,
     SaveOrUpdateShinyImpl.ShinyRepository {
+
+    private val repositoryFactory = RepositoryFactoryProvider.getFactory(Constants.DATABASE)
+    private val repository = repositoryFactory.createShinyRepository()
+
     override suspend fun delete(userId: String): UtilsResult<Unit, ErrorHandler> {
-        return handleFirebaseOperationWithErrorCode {
-            dbRepository.delete(userId)
+        return handleOperationWithErrorCode {
+            repository.delete(userId)
         }
     }
 
     override suspend fun get(userId: String): UtilsResult<List<ShinyCatch>, ErrorHandler> {
-        return handleFirebaseOperationWithErrorCode {
-            dbRepository.get(userId)
+        return handleOperationWithErrorCode {
+            repository.get(userId)
         }
     }
 
     override suspend fun add(userId: String, shinyCatch: List<ShinyCatch>): UtilsResult<Unit, ErrorHandler> {
-        return handleFirebaseOperationWithErrorCode {
-            dbRepository.saveOrUpdate(userId, shinyCatch)
+        return handleOperationWithErrorCode {
+            repository.saveOrUpdate(userId, shinyCatch)
         }
     }
 }

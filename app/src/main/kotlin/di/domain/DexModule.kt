@@ -2,7 +2,7 @@ package di.domain
 
 import dagger.Module
 import dagger.Provides
-import data.repository.DexRepositoryImpl
+import data.domain_impl_repository.DexRepositoryImpl
 import domain.use_cases.dex.GetDex
 import domain.use_cases.dex.GetDexImpl
 import domain.use_cases.dex.SaveOrUpdateMainDex
