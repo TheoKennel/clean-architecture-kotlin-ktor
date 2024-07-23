@@ -2,7 +2,7 @@ package di.domain
 
 import dagger.Module
 import dagger.Provides
-import data.repository.CustomDexGetRepositoryImpl
+import data.domain_impl_repository.CustomDexGetRepositoryImpl
 import domain.use_cases.custom_dex.get.*
 import domain.use_cases.custom_dex.get.GetCustomDexImpl
 import domain.use_cases.custom_dex.get.GetFirstFilterListImpl

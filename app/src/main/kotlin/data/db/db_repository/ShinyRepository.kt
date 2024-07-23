@@ -1,11 +1,10 @@
-package data.db.firebase.shiny_catch
+package data.db.db_repository
 
-import data.db.firebase.FirebaseRepository
 import domain.error.ErrorHandler
 import domain.models.ShinyCatch
 import utils.UtilsResult
 
-interface ShinyFirebaseRepository {
+interface ShinyRepository {
     suspend fun get(userId: String): UtilsResult<List<ShinyCatch>, ErrorHandler>
     suspend fun saveOrUpdate(userId: String, shinyCatch:  List<ShinyCatch>): UtilsResult<Unit, ErrorHandler>
     suspend fun delete(userId: String): UtilsResult<Unit, ErrorHandler>

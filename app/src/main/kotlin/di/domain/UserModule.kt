@@ -2,7 +2,7 @@ package di.domain
 
 import dagger.Module
 import dagger.Provides
-import data.repository.UserRepositoryImpl
+import data.domain_impl_repository.UserRepositoryImpl
 import domain.use_cases.user.*
 import domain.use_cases.user.DeleteUserByIdImpl
 import domain.use_cases.user.GetAllUserImpl

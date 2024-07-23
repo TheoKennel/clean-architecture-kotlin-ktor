@@ -2,12 +2,12 @@ package di
 
 import dagger.Module
 import dagger.Provides
-import data.repository.*
-import data.repository.CustomDexGetRepositoryImpl
-import data.repository.CustomDexSaveRepositoryImpl
-import data.repository.DexRepositoryImpl
-import data.repository.ShinyRepositoryImpl
-import data.repository.UserRepositoryImpl
+import data.domain_impl_repository.*
+import data.domain_impl_repository.CustomDexGetRepositoryImpl
+import data.domain_impl_repository.CustomDexSaveRepositoryImpl
+import data.domain_impl_repository.DexRepositoryImpl
+import data.domain_impl_repository.ShinyRepositoryImpl
+import data.domain_impl_repository.UserRepositoryImpl
 import javax.inject.Singleton
 
 @Module

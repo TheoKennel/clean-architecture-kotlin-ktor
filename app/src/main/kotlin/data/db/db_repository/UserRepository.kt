@@ -1,11 +1,10 @@
-package data.db.firebase.user
+package data.db.db_repository
 
-import data.db.firebase.FirebaseRepository
 import domain.error.ErrorHandler
 import domain.models.User
 import utils.UtilsResult
 
-interface UserFirebaseRepository  {
+interface UserRepository  {
     suspend fun get(userId: String): UtilsResult<User, ErrorHandler>
     suspend fun save(user: User): UtilsResult<Unit, ErrorHandler>
     suspend fun getAll() : UtilsResult<List<User>, ErrorHandler>

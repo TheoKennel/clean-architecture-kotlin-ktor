@@ -2,7 +2,7 @@ package di.domain
 
 import dagger.Module
 import dagger.Provides
-import data.repository.CounterRepositoryImpl
+import data.domain_impl_repository.CounterRepositoryImpl
 import domain.use_cases.counters.GetCounters
 import domain.use_cases.counters.GetCountersImpl
 import domain.use_cases.counters.SaveOrUpdateCounters

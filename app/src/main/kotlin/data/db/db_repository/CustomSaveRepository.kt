@@ -1,9 +1,9 @@
-package data.db.firebase.custom_dex
+package data.db.db_repository
 
 import utils.UtilsResult
 import domain.error.ErrorHandler
 
-interface CustomSaveFirebaseRepository {
+interface CustomSaveRepository {
     suspend fun saveCustomDexName(userId: String, name: String): UtilsResult<Unit, ErrorHandler>
     suspend fun saveFirstFilterList(userId: String, filters: List<String>): UtilsResult<Unit, ErrorHandler>
     suspend fun savePkmCatch(userId: String, pkmCatchList: List<String>): UtilsResult<Unit, ErrorHandler>

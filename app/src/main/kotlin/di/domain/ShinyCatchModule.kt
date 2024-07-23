@@ -2,7 +2,7 @@ package di.domain
 
 import dagger.Module
 import dagger.Provides
-import data.repository.ShinyRepositoryImpl
+import data.domain_impl_repository.ShinyRepositoryImpl
 import domain.use_cases.shiny_catch.*
 import domain.use_cases.shiny_catch.DeleteShinyImpl
 import domain.use_cases.shiny_catch.GetShinyImpl
