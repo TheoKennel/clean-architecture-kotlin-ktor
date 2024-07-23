@@ -29,4 +29,3 @@ internal class FirebaseCustomSaveRepoImpl : CustomSaveRepository {
     override suspend fun saveSecondFilterName(userId: String, name: String): UtilsResult<Unit, ErrorHandler> {
         TODO("Not yet implemented")
     }
-}

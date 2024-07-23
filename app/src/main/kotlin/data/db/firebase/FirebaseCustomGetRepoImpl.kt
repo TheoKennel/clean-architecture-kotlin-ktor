@@ -26,4 +26,3 @@ internal class FirebaseCustomGetRepoImpl : CustomGetRepository {
     override suspend fun getSecondFilterList(userId: String): UtilsResult<List<String>, ErrorHandler> {
         TODO("Not yet implemented")
     }
-}

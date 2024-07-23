@@ -28,4 +28,3 @@ class SqlRepositoryFactory : RepositoryFactory {
     override fun createUserRepository(): UserRepository {
         TODO("Not yet implemented")
     }
-}

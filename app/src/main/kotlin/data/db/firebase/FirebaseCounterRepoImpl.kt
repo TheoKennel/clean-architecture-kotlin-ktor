@@ -25,4 +25,3 @@ internal class FirebaseCounterRepoImpl : CountersRepository {
     override suspend fun save(userId: String, counter: List<String>): UtilsResult<Unit, ErrorHandler> {
         TODO("Not yet implemented")
     }
-}
