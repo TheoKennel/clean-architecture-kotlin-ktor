@@ -1,5 +1,6 @@
 package data.db.firebase
 
+import data.db.db_repository.CustomGetRepository
 import domain.error.ErrorHandler
 import domain.models.CustomDex
 import utils.UtilsResult

@@ -100,7 +100,7 @@ class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
             }
         })
     }
-
+    
     fun getChildList(userId: String, childPath: String, callback: (List<String>?, Exception?) -> Unit) {
         userReference.child(userId).child(childPath).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(data: DataSnapshot) {
