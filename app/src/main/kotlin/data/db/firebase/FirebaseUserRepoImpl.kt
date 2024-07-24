@@ -26,3 +26,4 @@ internal class FirebaseUserRepoImpl : UserRepository {
     override suspend fun update(userId: String, user: User): UtilsResult<Unit, ErrorHandler> {
         TODO("Not yet implemented")
     }
+}

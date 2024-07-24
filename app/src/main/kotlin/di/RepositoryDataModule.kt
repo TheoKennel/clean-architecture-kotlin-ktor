@@ -3,8 +3,7 @@ package di
 import dagger.Module
 import dagger.Provides
 import data.domain_impl_repository.*
-import data.domain_impl_repository.CustomDexGetRepositoryImpl
-import data.domain_impl_repository.CustomDexSaveRepositoryImpl
+import data.domain_impl_repository.CustomDexRepositoryImpl
 import data.domain_impl_repository.DexRepositoryImpl
 import data.domain_impl_repository.ShinyRepositoryImpl
 import data.domain_impl_repository.UserRepositoryImpl
@@ -31,16 +30,11 @@ internal class RepositoryDataModule {
         return DexRepositoryImpl()
     }
 
-    @Provides
-    @Singleton
-    fun provideCustomDexSaveRepository(): CustomDexSaveRepositoryImpl {
-        return CustomDexSaveRepositoryImpl()
-    }
 
     @Provides
     @Singleton
-    fun provideCustomDexGetRepository(): CustomDexGetRepositoryImpl {
-        return CustomDexGetRepositoryImpl()
+    fun provideCustomDexRepository(): CustomDexRepositoryImpl {
+        return CustomDexRepositoryImpl()
     }
 
     @Provides

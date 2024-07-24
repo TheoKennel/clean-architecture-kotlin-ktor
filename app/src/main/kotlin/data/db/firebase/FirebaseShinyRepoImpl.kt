@@ -18,3 +18,4 @@ internal class FirebaseShinyRepoImpl : ShinyRepository {
     override suspend fun saveOrUpdate(userId: String, shinyCatch: List<ShinyCatch>): UtilsResult<Unit, ErrorHandler> {
         TODO("Not yet implemented")
     }
+}

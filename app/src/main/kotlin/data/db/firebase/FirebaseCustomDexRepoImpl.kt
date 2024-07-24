@@ -1,0 +1,32 @@
+package data.db.firebase
+
+import data.db.db_repository.CustomDexRepository
+import domain.error.ErrorHandler
+import utils.UtilsResult
+
+internal class FirebaseCustomDexRepoImpl : CustomDexRepository {
+
+    override suspend fun saveCustomDexName(userId: String, name: String): UtilsResult<Unit, ErrorHandler> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveFirstFilterList(userId: String, filters: List<String>): UtilsResult<Unit, ErrorHandler> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun savePkmCatch(userId: String, pkmCatchList: List<String>): UtilsResult<Unit, ErrorHandler> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun savePkmList(userId: String, pkmList: List<String>): UtilsResult<Unit, ErrorHandler> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveSecondFilterList(userId: String, filters: List<String>): UtilsResult<Unit, ErrorHandler> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveSecondFilterName(userId: String, name: String): UtilsResult<Unit, ErrorHandler> {
+        TODO("Not yet implemented")
+    }
+}

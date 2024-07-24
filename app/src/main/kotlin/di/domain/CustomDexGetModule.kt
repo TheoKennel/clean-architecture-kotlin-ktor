@@ -2,7 +2,7 @@ package di.domain
 
 import dagger.Module
 import dagger.Provides
-import data.domain_impl_repository.CustomDexGetRepositoryImpl
+import data.domain_impl_repository.CustomDexRepositoryImpl
 import domain.use_cases.custom_dex.get.*
 import domain.use_cases.custom_dex.get.GetCustomDexImpl
 import domain.use_cases.custom_dex.get.GetFirstFilterListImpl
@@ -15,7 +15,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetCustomDex(
-        repository : CustomDexGetRepositoryImpl
+        repository : CustomDexRepositoryImpl
     ) : GetCustomDex {
         return GetCustomDexImpl(repository)
     }
@@ -23,7 +23,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetFirstFilterList(
-        repository : CustomDexGetRepositoryImpl
+        repository : CustomDexRepositoryImpl
     ) : GetFirstFilterList {
         return GetFirstFilterListImpl(repository)
     }
@@ -31,7 +31,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetPkmCatch(
-        repository : CustomDexGetRepositoryImpl
+        repository : CustomDexRepositoryImpl
     ) : GetPkmCatch {
         return GetPkmCatchImpl(repository)
     }
@@ -39,7 +39,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetPkmList(
-        repository : CustomDexGetRepositoryImpl
+        repository : CustomDexRepositoryImpl
     ) : GetPkmList {
         return GetPkmListImpl(repository)
     }
@@ -47,7 +47,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetSecondFilterList(
-        repository : CustomDexGetRepositoryImpl
+        repository : CustomDexRepositoryImpl
     ) : GetSecondFilterList {
         return GetSecondFilterListImpl(repository)
     }

@@ -5,6 +5,6 @@ import domain.models.Counter
 import utils.UtilsResult
 
 interface CountersRepository {
-    suspend fun get(userId: String) : UtilsResult<Counter, ErrorHandler>
-    suspend fun save(userId: String, counter:  List<String>) : UtilsResult<Unit, ErrorHandler>
+    suspend fun get(userId: String) : Counter
+    suspend fun save(userId: String, counter:  List<String>) : Unit
 }

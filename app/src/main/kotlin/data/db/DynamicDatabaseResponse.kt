@@ -7,9 +7,9 @@ import utils.UtilsResult
 import java.io.IOException
 import java.sql.SQLException
 
-suspend fun <T> handleOperationWithErrorCode(operation: suspend () -> UtilsResult<T, ErrorHandler>): UtilsResult<T, ErrorHandler> {
+suspend fun <T> handleOperationWithErrorCode(operation: suspend () -> T): UtilsResult<T, ErrorHandler> {
     return try {
-        operation()
+        Result.Success(operation())
     } catch (e: IOException) {
         Result.Error(ErrorHandler.NetworkError)
     } catch (e: Exception) {

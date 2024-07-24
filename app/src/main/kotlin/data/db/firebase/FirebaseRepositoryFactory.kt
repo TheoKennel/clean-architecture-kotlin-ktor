@@ -13,8 +13,8 @@ internal class FirebaseRepositoryFactory : RepositoryFactory {
         return FirebaseCustomGetRepoImpl()
     }
 
-    override fun createCustomSaveRepository(): CustomSaveRepository {
-        return FirebaseCustomSaveRepoImpl()
+    override fun createCustomSaveRepository(): CustomDexRepository {
+        return FirebaseCustomDexRepoImpl()
     }
 
     override fun createDexRepository(): DexRepository {
@@ -28,3 +28,4 @@ internal class FirebaseRepositoryFactory : RepositoryFactory {
     override fun createUserRepository(): UserRepository {
         return FirebaseUserRepoImpl()
     }
+}
