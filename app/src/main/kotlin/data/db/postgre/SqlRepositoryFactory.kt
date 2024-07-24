@@ -9,11 +9,7 @@ class SqlRepositoryFactory : RepositoryFactory {
         TODO("Not yet implemented")
     }
 
-    override fun createCustomGetRepository(): CustomGetRepository {
-        TODO("Not yet implemented")
-    }
-
-    override fun createCustomSaveRepository(): CustomDexRepository {
+    override fun createCustomDexRepository(): CustomDexRepository {
         TODO("Not yet implemented")
     }
 

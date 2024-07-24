@@ -5,9 +5,9 @@ import domain.models.User
 import utils.UtilsResult
 
 interface UserRepository  {
-    suspend fun get(userId: String): UtilsResult<User, ErrorHandler>
-    suspend fun save(user: User): UtilsResult<Unit, ErrorHandler>
-    suspend fun getAll() : UtilsResult<List<User>, ErrorHandler>
-    suspend fun delete(userId: String) : UtilsResult<Unit, ErrorHandler>
-    suspend fun update(userId: String, user: User) : UtilsResult<Unit, ErrorHandler>
+    suspend fun get(userId: String): User
+    suspend fun save(user: User)
+    suspend fun getAll() : List<User>
+    suspend fun delete(userId: String)
+    suspend fun update(userId: String, user: User)
 }

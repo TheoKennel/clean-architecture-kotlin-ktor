@@ -7,14 +7,11 @@ fun interface SaveOrUpdateSecondFilterName {
     suspend operator fun invoke(userId: String, name: String): UtilsResult<Unit, ErrorHandler>
 }
 
-internal class SaveOrUpdateSecondFilterNameImpl(
-    private val customDexRepository: CustomDexRepository,
-) : SaveOrUpdateSecondFilterName {
+internal class SaveOrUpdateSecondFilterNameImpl : SaveOrUpdateSecondFilterName {
 
-    fun interface CustomDexRepository {
-
-        suspend fun saveSecondFilterName(userId: String,  name: String): UtilsResult<Unit, ErrorHandler>
+    override suspend fun invoke(userId: String,  name: String): UtilsResult<Unit, ErrorHandler> {
+        return SaveOrUpdateUtils.updateCustomDex(userId) {
+            it.secondFilterName = name
+        }
     }
-
-    override suspend fun invoke(userId: String,  name: String): UtilsResult<Unit, ErrorHandler> = customDexRepository.saveSecondFilterName(userId, name)
 }

@@ -1,6 +1,7 @@
 package di
 
 import dagger.Component
+import data.db.firebase.FirebaseInitializer
 import di.domain.*
 import presenter.controller.counters.CounterImpl
 import presenter.controller.custom_dex.CustomGetDexImpl
@@ -29,4 +30,5 @@ interface AppComponent {
     fun getDexController(): DexImpl
     fun getShinyController(): ShinyImpl
     fun getUserController(): UserImpl
+    fun getFirebaseInitialize(): FirebaseInitializer
 }

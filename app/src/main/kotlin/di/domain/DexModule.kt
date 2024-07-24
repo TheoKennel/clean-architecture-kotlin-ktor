@@ -23,8 +23,9 @@ internal class DexModule {
     @Provides
     @Singleton
     fun provideSaveMainDex(
-        repository: DexRepositoryImpl
+        repository: DexRepositoryImpl,
+        getDex: GetDex
     ) : SaveOrUpdateMainDex {
-        return SaveOrUpdateMainDexImpl(repository)
+        return SaveOrUpdateMainDexImpl(repository, getDex)
     }
 }

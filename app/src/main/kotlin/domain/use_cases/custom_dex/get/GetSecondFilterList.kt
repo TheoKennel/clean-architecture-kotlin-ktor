@@ -16,7 +16,7 @@ internal class GetSecondFilterListImpl(
     override suspend fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler> {
         return when (val result = getCustomDex(userId)) {
             is Result.Success -> Result.Success(result.value.secondFilterList)
-            is Result.Error -> Result.Error(result.error ?: throw Exception("Unknown Error"))
+            is Result.Error -> Result.Error(result.error ?: ErrorHandler.UnknownError("Unknown Error"))
         }
     }
 }

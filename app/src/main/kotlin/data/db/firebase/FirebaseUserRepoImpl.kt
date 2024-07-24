@@ -1,29 +1,27 @@
 package data.db.firebase
 
 import data.db.db_repository.UserRepository
-import domain.error.ErrorHandler
 import domain.models.User
-import utils.UtilsResult
 
 internal class FirebaseUserRepoImpl : UserRepository {
 
-    override suspend fun getAll(): UtilsResult<List<User>, ErrorHandler> {
+    override suspend fun getAll(): List<User> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun delete(userId: String): UtilsResult<Unit, ErrorHandler> {
+    override suspend fun get(userId: String): User {
         TODO("Not yet implemented")
     }
 
-    override suspend fun get(userId: String): UtilsResult<User, ErrorHandler> {
+    override suspend fun delete(userId: String) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun save(user: User): UtilsResult<Unit, ErrorHandler> {
+    override suspend fun save(user: User) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun update(userId: String, user: User): UtilsResult<Unit, ErrorHandler> {
+    override suspend fun update(userId: String, user: User) {
         TODO("Not yet implemented")
     }
 }

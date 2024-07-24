@@ -7,14 +7,11 @@ fun interface SaveOrUpdateFirstFilterList {
     suspend operator fun invoke(userId: String, filter: List<String>): UtilsResult<Unit, ErrorHandler>
 }
 
-internal class SaveOrUpdateFirstFilterListImpl(
-    private val customDexRepository: CustomDexRepository,
-) : SaveOrUpdateFirstFilterList {
+internal class SaveOrUpdateFirstFilterListImpl : SaveOrUpdateFirstFilterList {
 
-    fun interface CustomDexRepository {
-
-        suspend fun saveFirstFilterList(userId: String,   filter: List<String>): UtilsResult<Unit, ErrorHandler>
+    override suspend fun invoke(userId: String,  filter: List<String>): UtilsResult<Unit, ErrorHandler> {
+        return SaveOrUpdateUtils.updateCustomDex(userId) {
+                it.firstFilterList = filter
+        }
     }
-
-    override suspend fun invoke(userId: String,  filter: List<String>): UtilsResult<Unit, ErrorHandler> = customDexRepository.saveFirstFilterList(userId, filter)
 }
