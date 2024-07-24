@@ -7,6 +7,6 @@ data class Counter(
     val count: Int,
     val method: Int,
     val name: String,
-    val regionalForm: Int,
-    val regionalSubform: Int
+    val regional_form: Int,
+    val regional_subform: Int
 )

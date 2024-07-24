@@ -68,7 +68,7 @@ class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
         }
     }
 
-    fun saveOrUpdate(parentId: String, childPath: String, item: T, callback: (Boolean, Exception?) -> Unit) {
+    fun saveChild(parentId: String, childPath: String, item: T, callback: (Boolean, Exception?) -> Unit) {
         userReference.child(parentId).child(childPath).setValue(item) { error, _ ->
             if (error != null) {
                 callback(false, error.toException())
@@ -78,8 +78,8 @@ class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
         }
     }
 
-    fun saveOrUpdateList(parentId: String, childPath: String, items: List<T>, callback: (Boolean, Exception?) -> Unit) {
-        userReference.child(parentId).child(childPath).setValue(items) { error, _ ->
+    fun saveChildList(parentId: String, firstChildPath: String, items: List<T>, callback: (Boolean, Exception?) -> Unit) {
+        userReference.child(parentId).child(firstChildPath).setValue(items) { error, _ ->
             if (error != null) {
                 callback(false, error.toException())
             } else {
@@ -100,17 +100,17 @@ class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
             }
         })
     }
-    
-    fun getChildList(userId: String, childPath: String, callback: (List<String>?, Exception?) -> Unit) {
-        userReference.child(userId).child(childPath).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(data: DataSnapshot) {
-                val items = mutableListOf<String>()
-                data.children.forEach { child ->
-                    val item = child.getValue(String::class.java)
-                    item?.let { items.add(it)}
+
+    fun getChildList(userId : String, childPath: String, callback: (List<T>?, Exception?) -> Unit) {
+            userReference.child(userId).child(childPath).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val items = mutableListOf<T>()
+                    dataSnapshot.children.forEach { child ->
+                        val item = child.getValue(clazz)
+                        item?.let { items.add(it) }
+                    }
+                    callback(items, null)
                 }
-                callback(items, null)
-            }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 callback(null, databaseError.toException())

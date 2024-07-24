@@ -4,25 +4,17 @@ import data.db.factory.RepositoryFactoryProvider
 import data.db.handleOperationWithErrorCode
 import domain.error.ErrorHandler
 import domain.models.ShinyCatch
-import domain.use_cases.shiny_catch.DeleteShinyImpl
 import domain.use_cases.shiny_catch.GetShinyImpl
 import domain.use_cases.shiny_catch.SaveOrUpdateShinyImpl
 import utils.Constants
 import utils.UtilsResult
 
 internal class ShinyRepositoryImpl :
-    DeleteShinyImpl.ShinyRepository,
     GetShinyImpl.ShinyRepository,
     SaveOrUpdateShinyImpl.ShinyRepository {
 
     private val repositoryFactory = RepositoryFactoryProvider.getFactory(Constants.DATABASE)
     private val repository = repositoryFactory.createShinyRepository()
-
-    override suspend fun delete(userId: String): UtilsResult<Unit, ErrorHandler> {
-        return handleOperationWithErrorCode {
-            repository.delete(userId)
-        }
-    }
 
     override suspend fun get(userId: String): UtilsResult<List<ShinyCatch>, ErrorHandler> {
         return handleOperationWithErrorCode {

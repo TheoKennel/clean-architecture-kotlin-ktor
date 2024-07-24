@@ -16,13 +16,13 @@ internal class CounterRepositoryImpl :
     private val repositoryFactory  = RepositoryFactoryProvider.getFactory(Constants.DATABASE)
     private val counterRepository = repositoryFactory.createCounterRepository()
 
-    override suspend fun get(userId: String): UtilsResult<Counter, ErrorHandler> {
+    override suspend fun get(userId: String): UtilsResult<List<Counter>, ErrorHandler> {
         return handleOperationWithErrorCode {
             counterRepository.get(userId)
         }
     }
 
-    override suspend fun save(userId: String, counters: List<String>): UtilsResult<Unit, ErrorHandler> {
+    override suspend fun save(userId: String, counters: List<Counter>): UtilsResult<Unit, ErrorHandler> {
         return handleOperationWithErrorCode {
             counterRepository.save(userId, counters)
         }

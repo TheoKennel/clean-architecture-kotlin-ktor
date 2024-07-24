@@ -7,14 +7,12 @@ fun interface SaveOrUpdatePkmCatch {
     suspend operator fun invoke(userId: String, pkm: List<String>): UtilsResult<Unit, ErrorHandler>
 }
 
-internal class SaveOrUpdatePkmCatchImpl(
-    private val customDexRepository: CustomDexRepository,
-) : SaveOrUpdatePkmCatch {
+internal class SaveOrUpdatePkmCatchImpl : SaveOrUpdatePkmCatch {
 
-    fun interface CustomDexRepository {
 
-        suspend fun savePkmCatch(userId: String,   pkm: List<String>): UtilsResult<Unit, ErrorHandler>
+    override suspend fun invoke(userId: String,  pkm: List<String>): UtilsResult<Unit, ErrorHandler> {
+        return SaveOrUpdateUtils.updateCustomDex(userId) {
+            it.pkmCatch = pkm
+        }
     }
-
-    override suspend fun invoke(userId: String,  pkm: List<String>): UtilsResult<Unit, ErrorHandler> = customDexRepository.savePkmCatch(userId, pkm)
 }

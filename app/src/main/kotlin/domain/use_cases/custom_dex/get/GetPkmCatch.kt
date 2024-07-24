@@ -1,6 +1,7 @@
 package domain.use_cases.custom_dex.get
 
 import domain.error.ErrorHandler
+import utils.Result
 import utils.UtilsResult
 
 fun interface GetPkmCatch {
@@ -8,13 +9,13 @@ fun interface GetPkmCatch {
 }
 
 internal class GetPkmCatchImpl(
-    private val customDexRepository: CustomDexRepository,
+    private val get: GetCustomDex,
 ) : GetPkmCatch {
 
-    fun interface CustomDexRepository {
-
-        suspend fun getPkmCatch(userId: String): UtilsResult<List<String>, ErrorHandler>
+    override suspend fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler> {
+        return when (val result = get.invoke(userId)) {
+            is Result.Success -> Result.Success(result.value.pkmCatch)
+            is Result.Error -> Result.Error(result.error ?: ErrorHandler.UnknownError("Unknown Error"))
+        }
     }
-
-    override suspend fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler> = customDexRepository.getPkmCatch(userId)
 }

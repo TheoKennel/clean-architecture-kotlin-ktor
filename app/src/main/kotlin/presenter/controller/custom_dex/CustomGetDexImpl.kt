@@ -14,7 +14,7 @@ class CustomGetDexImpl @Inject constructor(
     private val getPkmCatch: GetPkmCatch,
     private val getPkmList: GetPkmList,
     private val getSecondFilterList: GetSecondFilterList,
-) : CustomGetDex {
+) : CustomDex {
 
     override suspend fun getCustomDex(call: ApplicationCall) {
         val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)

@@ -16,6 +16,8 @@ val daggerVersion = "2.46"
 val coroutineVersion = "1.5.2"
 val kotlinVersion = "1.9.0"
 val firebaseVersion = "8.1.0"
+val dotenvVersion = "5.2.2"
+val gsonVersion = "2.11.0"
 
 dependencies {
     // coroutine
@@ -30,11 +32,14 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-config-yaml:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-gson:$ktorVersion")
     // tests
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
     // firebase
     implementation("com.google.firebase:firebase-admin:$firebaseVersion")
+    //dotenv
+    implementation("io.github.cdimascio:java-dotenv:$dotenvVersion")
 }
 
 kapt {

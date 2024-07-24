@@ -22,9 +22,9 @@ internal class DexRepositoryImpl :
         }
     }
 
-    override suspend fun save(userId: String, mainDexCatch: List<String>): UtilsResult<Unit, ErrorHandler> {
+    override suspend fun save(userId: String, dex: Dex): UtilsResult<Unit, ErrorHandler> {
         return handleOperationWithErrorCode {
-            repository.saveOrUpdate(userId, mainDexCatch)
+            repository.saveOrUpdate(userId, dex)
         }
     }
 }

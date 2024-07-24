@@ -12,49 +12,37 @@ internal class CustomDexSaveModule {
 
     @Provides
     @Singleton
-    fun provideSaveCustomDexName(
-        repository : CustomDexSaveRepositoryImpl
-    ) : SaveOrUpdateCustomDexName {
-        return SaveOrUpdateCustomDexNameImpl(repository)
+    fun provideSaveCustomDexName() :  SaveOrUpdateCustomDexName {
+        return SaveOrUpdateCustomDexNameImpl()
     }
 
     @Provides
     @Singleton
-    fun provideSaveFirstFilterList(
-        repository : CustomDexSaveRepositoryImpl
-    ) : SaveOrUpdateFirstFilterList {
-        return SaveOrUpdateFirstFilterListImpl(repository)
+    fun provideSaveFirstFilterList(): SaveOrUpdateFirstFilterList {
+        return SaveOrUpdateFirstFilterListImpl()
     }
 
     @Provides
     @Singleton
-    fun provideSavePkmCatch(
-        repository : CustomDexSaveRepositoryImpl
-    ) : SaveOrUpdatePkmCatch {
-        return SaveOrUpdatePkmCatchImpl(repository)
+    fun provideSavePkmCatch() : SaveOrUpdatePkmCatch {
+        return SaveOrUpdatePkmCatchImpl()
     }
 
     @Provides
     @Singleton
-    fun provideSavePkmList(
-        repository : CustomDexSaveRepositoryImpl
-    ) : SaveOrUpdatePkmList {
-        return SaveOrUpdatePkmListImpl(repository)
+    fun provideSavePkmList(): SaveOrUpdatePkmList {
+        return SaveOrUpdatePkmListImpl()
     }
 
     @Provides
     @Singleton
-    fun provideSaveSecondFilterList(
-        repository : CustomDexSaveRepositoryImpl
-    ) : SaveOrUpdateSecondFilterList {
-        return SaveOrUpdateSecondFilterListImpl(repository)
+    fun provideSaveSecondFilterList(): SaveOrUpdateSecondFilterList {
+        return SaveOrUpdateSecondFilterListImpl()
     }
 
     @Provides
     @Singleton
-    fun provideSaveSecondFilterName(
-        repository : CustomDexSaveRepositoryImpl
-    ) : SaveOrUpdateSecondFilterName {
-        return SaveOrUpdateSecondFilterNameImpl(repository)
+    fun provideSaveSecondFilterName() : SaveOrUpdateSecondFilterName {
+        return SaveOrUpdateSecondFilterNameImpl()
     }
 }

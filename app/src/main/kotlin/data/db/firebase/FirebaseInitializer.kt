@@ -6,8 +6,9 @@ import com.google.firebase.FirebaseOptions
 import io.github.cdimascio.dotenv.Dotenv
 import java.io.FileInputStream
 import java.nio.file.Paths
+import javax.inject.Inject
 
-class FirebaseInitializer {
+class FirebaseInitializer @Inject constructor() {
 
     init {
         initialiseDb()
@@ -28,7 +29,7 @@ class FirebaseInitializer {
         FirebaseApp.initializeApp(options)
     }
 
-    private fun loadCredentials(databaseSdk: String?): GoogleCredentials {
+    private fun loadCredentials(databaseSdk: String): GoogleCredentials {
         val absolutePath = Paths.get(databaseSdk).toAbsolutePath().toString()
         return GoogleCredentials.fromStream(FileInputStream(absolutePath))
     }

@@ -2,23 +2,39 @@ package presenter.controller
 
 import di.AppComponent
 import di.DaggerAppComponent
+import io.ktor.serialization.gson.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.routing.*
+import java.text.DateFormat
 
 fun main() {
+    println("Hello World!")
     embeddedServer(Netty, port = 8080, module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
     val appComponent = DaggerAppComponent.create()
+    appComponent.getFirebaseInitialize()
+    configureSerialization()
     configureCounterRoutes(appComponent)
     configureCustomGetDexRoutes(appComponent)
     configureCustomSaveDexRoutes(appComponent)
     configureDexRoutes(appComponent)
     configureShinyCatch(appComponent)
     configureUserRoutes(appComponent)
+}
+
+fun Application.configureSerialization() {
+    install(ContentNegotiation) {
+        gson {
+            setPrettyPrinting()
+            setDateFormat(DateFormat.LONG)
+            serializeNulls()
+        }
+    }
 }
 
 fun Application.configureCounterRoutes(appComponent: AppComponent) {
@@ -118,10 +134,6 @@ fun Application.configureShinyCatch(appComponent: AppComponent) {
     val controller = appComponent.getShinyController()
     routing {
         route("/shiny") {
-
-            delete("/{id}") {
-                controller.deleteShiny(call)
-            }
 
             get("/{id}") {
                 controller.getShiny(call)

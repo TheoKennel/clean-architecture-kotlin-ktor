@@ -10,6 +10,7 @@ import presenter.controller.handleErrors
 import utils.Result
 import javax.inject.Inject
 
+typealias ModelCounter = domain.models.Counter
 class CounterImpl @Inject constructor(
     private val getCounter: GetCounters,
     private val saveOrUpdateCounters: SaveOrUpdateCounters,
@@ -25,7 +26,7 @@ class CounterImpl @Inject constructor(
 
     override suspend fun saveOrUpdateCounter(call: ApplicationCall) {
         val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val counters = call.receive<List<String>>()
+        val counters = call.receive<List<ModelCounter>>()
         when (val result = saveOrUpdateCounters(userId, counters)) {
             is Result.Success -> call.respond(result.value)
             is Result.Error -> handleErrors(call, result.value)

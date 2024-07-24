@@ -2,7 +2,7 @@ package presenter.controller.custom_dex
 
 import io.ktor.server.application.*
 
-interface CustomGetDex {
+interface CustomDex {
     suspend fun getCustomDex(call: ApplicationCall)
     suspend fun getFirstFilterList(call: ApplicationCall)
     suspend fun getPkmCatch(call: ApplicationCall)
