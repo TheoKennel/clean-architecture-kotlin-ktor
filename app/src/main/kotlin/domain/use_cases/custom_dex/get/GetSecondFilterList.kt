@@ -1,6 +1,7 @@
 package domain.use_cases.custom_dex.get
 
 import domain.error.ErrorHandler
+import utils.Result
 import utils.UtilsResult
 
 fun interface GetSecondFilterList {
@@ -8,13 +9,14 @@ fun interface GetSecondFilterList {
 }
 
 internal class GetSecondFilterListImpl(
-    private val customDexRepository: CustomDexRepository,
+    private val getCustomDex: GetCustomDex
 ) : GetSecondFilterList {
 
-    fun interface CustomDexRepository {
 
-        suspend fun getSecondFilterList(userId: String): UtilsResult<List<String>, ErrorHandler>
+    override suspend fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler> {
+        return when (val result = getCustomDex(userId)) {
+            is Result.Success -> Result.Success(result.value.secondFilterList)
+            is Result.Error -> Result.Error(result.error ?: throw Exception("Unknown Error"))
+        }
     }
-
-    override suspend fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler> = customDexRepository.getSecondFilterList(userId)
 }

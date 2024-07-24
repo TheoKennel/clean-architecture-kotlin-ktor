@@ -1,10 +1,10 @@
 package data.db.firebase
 
-import data.db.db_repository.CustomSaveRepository
+import data.db.db_repository.CustomDexRepository
 import domain.error.ErrorHandler
 import utils.UtilsResult
 
-internal class FirebaseCustomSaveRepoImpl : CustomSaveRepository {
+internal class FirebaseCustomDexRepoImpl : CustomDexRepository {
 
     override suspend fun saveCustomDexName(userId: String, name: String): UtilsResult<Unit, ErrorHandler> {
         TODO("Not yet implemented")
