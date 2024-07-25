@@ -1,11 +1,9 @@
 package domain.use_cases.user
 
-import domain.error.ErrorHandler
 import domain.models.User
-import utils.UtilsResult
 
 fun interface SaveUser {
-    suspend operator fun invoke(user: User) : UtilsResult<Unit, ErrorHandler>
+    suspend operator fun invoke(user: User)
 }
 
 internal class SaveUserImpl(
@@ -13,7 +11,7 @@ internal class SaveUserImpl(
 ): SaveUser {
 
     fun interface UserRepository {
-        suspend fun save(user: User) : UtilsResult<Unit, ErrorHandler>
+        suspend fun save(user: User)
     }
     override suspend fun invoke(user: User) = userRepository.save(user)
 }

@@ -4,7 +4,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-.env
+app/src/main/resources/.env.dev
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
@@ -17,6 +17,8 @@ build/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+
+**/src/main/resources/db-credential.json
 
 ### Eclipse ###
 .apt_generated

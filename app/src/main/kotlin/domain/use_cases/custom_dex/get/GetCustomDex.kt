@@ -1,11 +1,9 @@
 package domain.use_cases.custom_dex.get
 
-import domain.error.ErrorHandler
 import domain.models.CustomDex
-import utils.UtilsResult
 
 fun interface GetCustomDex {
-    suspend operator fun invoke(userId: String): UtilsResult<CustomDex, ErrorHandler>
+    suspend operator fun invoke(userId: String): CustomDex
 }
 
 internal class GetCustomDexImpl(
@@ -14,8 +12,8 @@ internal class GetCustomDexImpl(
 
     fun interface CustomDexRepository {
 
-        suspend fun get(userId: String): UtilsResult<CustomDex, ErrorHandler>
+        suspend fun get(userId: String): CustomDex
     }
 
-    override suspend fun invoke(userId: String): UtilsResult<CustomDex, ErrorHandler> = customDexRepository.get(userId)
+    override suspend fun invoke(userId: String): CustomDex = customDexRepository.get(userId)
 }

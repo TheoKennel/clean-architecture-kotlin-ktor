@@ -5,7 +5,7 @@ import domain.models.ShinyCatch
 import utils.UtilsResult
 
 fun interface SaveOrUpdateShiny {
-    suspend operator fun invoke(userId: String, shinyCatch:  List<ShinyCatch>): UtilsResult<Unit, ErrorHandler>
+    suspend operator fun invoke(userId: String, shinyCatch:  List<ShinyCatch>)
 }
 
 internal class SaveOrUpdateShinyImpl(
@@ -14,8 +14,8 @@ internal class SaveOrUpdateShinyImpl(
 
     fun interface ShinyRepository {
 
-        suspend fun add(userId: String, shinyCatch: List<ShinyCatch>): UtilsResult<Unit, ErrorHandler>
+        suspend fun add(userId: String, shinyCatch: List<ShinyCatch>)
     }
 
-    override suspend fun invoke(userId: String, shinyCatch: List<ShinyCatch>): UtilsResult<Unit, ErrorHandler> = shinyRepository.add(userId, shinyCatch)
+    override suspend fun invoke(userId: String, shinyCatch: List<ShinyCatch>) = shinyRepository.add(userId, shinyCatch)
 }

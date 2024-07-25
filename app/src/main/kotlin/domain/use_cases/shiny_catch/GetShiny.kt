@@ -6,7 +6,7 @@ import domain.models.ShinyCatch
 import utils.UtilsResult
 
 fun interface GetShiny {
-    suspend operator fun invoke(userId: String): UtilsResult<List<ShinyCatch>, ErrorHandler>
+    suspend operator fun invoke(userId: String): List<ShinyCatch>
 }
 
 internal class GetShinyImpl(
@@ -14,9 +14,9 @@ internal class GetShinyImpl(
 ) : GetShiny {
 
     fun interface ShinyRepository {
-        suspend fun get(userId: String): UtilsResult<List<ShinyCatch>, ErrorHandler>
+        suspend fun get(userId: String): List<ShinyCatch>
     }
 
-    override suspend fun invoke(userId: String): UtilsResult<List<ShinyCatch>, ErrorHandler> =
+    override suspend fun invoke(userId: String): List<ShinyCatch> =
         shinyRepository.get(userId)
 }
