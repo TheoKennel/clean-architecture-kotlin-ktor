@@ -1,7 +1,5 @@
 package data.db.db_repository
 
-import utils.UtilsResult
-import domain.error.ErrorHandler
 import domain.models.CustomDex
 
 interface CustomDexRepository {

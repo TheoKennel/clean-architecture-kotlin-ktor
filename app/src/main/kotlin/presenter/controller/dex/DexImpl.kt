@@ -6,8 +6,7 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import presenter.controller.handleErrors
-import utils.Result
+import presenter.controller.handleRequest
 import javax.inject.Inject
 
 class DexImpl @Inject constructor(
@@ -16,19 +15,18 @@ class DexImpl @Inject constructor(
 ) : Dex {
 
     override suspend fun getDex(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        when (val result = getDex(userId)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
+            getDex(userId)
         }
     }
 
     override suspend fun saveMainDex(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val dex = call.receive<List<String>>()
-        when (val result = saveOrUpdateMainDex(userId, dex)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
+            val dex = call.receive<List<String>>()
+            saveOrUpdateMainDex(userId, dex)
+            HttpStatusCode.NoContent
         }
     }
 }

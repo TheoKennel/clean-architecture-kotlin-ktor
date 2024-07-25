@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class User(
-    val accountName: String,
-    val counters: List<Counter>,
-    val dex: Dex,
-    val shinyCatch: List<ShinyCatch>,
-    val id: String
+    val account_name: String = "",
+    val counters: List<Counter> = emptyList(),
+    val dex: Dex = Dex(emptyList(), emptyList()),
+    val shiny_catch: List<ShinyCatch> = emptyList(),
+    val id: String = ""
 )

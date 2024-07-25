@@ -6,9 +6,8 @@ import domain.use_cases.shiny_catch.SaveOrUpdateShiny
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
-import presenter.controller.handleErrors
-import utils.Result
+import presenter.controller.handleRequest
+import utils.Constants
 import javax.inject.Inject
 
 class ShinyImpl @Inject constructor(
@@ -17,19 +16,18 @@ class ShinyImpl @Inject constructor(
 ) : Shiny {
 
     override suspend fun getShiny(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        when (val result = getShinyDomain(userId)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            getShinyDomain(userId)
         }
     }
 
     override suspend fun saveShiny(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val shinyList = call.receive<List<ShinyCatch>>()
-        when (val result = saveOrUpdateShiny(userId, shinyList)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val shinyList = call.receive<List<ShinyCatch>>()
+            saveOrUpdateShiny(userId, shinyList)
+            HttpStatusCode.NoContent
         }
     }
 }

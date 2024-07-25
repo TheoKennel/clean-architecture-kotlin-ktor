@@ -1,11 +1,9 @@
 package domain.use_cases.dex
 
-import domain.error.ErrorHandler
 import domain.models.Dex
-import utils.UtilsResult
 
 fun interface GetDex {
-    suspend operator fun invoke(userId: String): UtilsResult<Dex, ErrorHandler>
+    suspend operator fun invoke(userId: String): Dex
 }
 
 internal class GetDexImpl(
@@ -14,8 +12,8 @@ internal class GetDexImpl(
 
     fun interface DexRepository {
 
-        suspend fun get(userId: String): UtilsResult<Dex, ErrorHandler>
+        suspend fun get(userId: String): Dex
     }
 
-    override suspend fun invoke(userId: String): UtilsResult<Dex, ErrorHandler> = dexRepository.get(userId)
+    override suspend fun invoke(userId: String): Dex = dexRepository.get(userId)
 }

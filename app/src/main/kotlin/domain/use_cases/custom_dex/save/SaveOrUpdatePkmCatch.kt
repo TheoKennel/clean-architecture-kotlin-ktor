@@ -1,18 +1,20 @@
 package domain.use_cases.custom_dex.save
 
-import domain.error.ErrorHandler
-import utils.UtilsResult
+import domain.use_cases.custom_dex.get.GetCustomDex
 
 fun interface SaveOrUpdatePkmCatch {
-    suspend operator fun invoke(userId: String, pkm: List<String>): UtilsResult<Unit, ErrorHandler>
+    suspend operator fun invoke(userId: String, pkm: List<String>)
 }
 
-internal class SaveOrUpdatePkmCatchImpl : SaveOrUpdatePkmCatch {
+internal class SaveOrUpdatePkmCatchImpl(
+    private val getCustomDex: GetCustomDex,
+    private val saveCustomDex: SaveOrUpdateCustomDex
+) : SaveOrUpdatePkmCatch {
 
 
-    override suspend fun invoke(userId: String,  pkm: List<String>): UtilsResult<Unit, ErrorHandler> {
-        return SaveOrUpdateUtils.updateCustomDex(userId) {
-            it.pkmCatch = pkm
+    override suspend fun invoke(userId: String,  pkm: List<String>) {
+        return SaveOrUpdateUtils(getCustomDex, saveCustomDex).updateCustomDex(userId) {
+            it.pkm_catch = pkm
         }
     }
 }

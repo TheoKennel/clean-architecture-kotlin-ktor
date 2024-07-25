@@ -1,11 +1,9 @@
 package domain.use_cases.user
 
-import domain.error.ErrorHandler
 import domain.models.User
-import utils.UtilsResult
 
 fun interface UpdateUserById {
-    suspend operator fun invoke(userId: String, user: User) : UtilsResult<Unit, ErrorHandler>
+    suspend operator fun invoke(userId: String, user: User)
 }
 
 internal class UpdateUserByIdImpl(
@@ -13,7 +11,7 @@ internal class UpdateUserByIdImpl(
 ): UpdateUserById {
 
     fun interface UserRepository {
-        suspend fun updateUser(userId: String, user: User) : UtilsResult<Unit, ErrorHandler>
+        suspend fun updateUser(userId: String, user: User)
     }
 
     override suspend fun invoke(userId: String, user: User) = userRepository.updateUser(userId, user)
