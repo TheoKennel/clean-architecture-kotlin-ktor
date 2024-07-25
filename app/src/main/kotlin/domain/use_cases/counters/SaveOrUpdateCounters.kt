@@ -1,11 +1,9 @@
 package domain.use_cases.counters
 
-import domain.error.ErrorHandler
 import domain.models.Counter
-import utils.UtilsResult
 
 fun interface SaveOrUpdateCounters {
-    suspend operator fun invoke(userId: String, counters : List<Counter>): UtilsResult<Unit, ErrorHandler>
+    suspend operator fun invoke(userId: String, counters : List<Counter>)
 }
 
 internal class SaveOrUpdateCountersImpl(
@@ -14,9 +12,9 @@ internal class SaveOrUpdateCountersImpl(
 
     fun interface CountersRepository {
 
-        suspend fun save(userId: String, counters : List<Counter>): UtilsResult<Unit, ErrorHandler>
+        suspend fun save(userId: String, counters : List<Counter>)
     }
 
-    override suspend fun invoke(userId: String, counters : List<Counter>): UtilsResult<Unit, ErrorHandler> =
+    override suspend fun invoke(userId: String, counters : List<Counter>) =
         countersRepository.save(userId, counters)
 }

@@ -1,17 +1,19 @@
 package domain.use_cases.custom_dex.save
 
-import domain.error.ErrorHandler
-import utils.UtilsResult
+import domain.use_cases.custom_dex.get.GetCustomDex
 
 fun interface SaveOrUpdateSecondFilterList {
-    suspend operator fun invoke(userId: String, filter: List<String>): UtilsResult<Unit, ErrorHandler>
+    suspend operator fun invoke(userId: String, filter: List<String>)
 }
 
-internal class SaveOrUpdateSecondFilterListImpl : SaveOrUpdateSecondFilterList {
+internal class SaveOrUpdateSecondFilterListImpl(
+    private val getCustomDex: GetCustomDex,
+    private val saveCustomDex: SaveOrUpdateCustomDex
+) : SaveOrUpdateSecondFilterList {
 
-    override suspend fun invoke(userId: String,  filter: List<String>): UtilsResult<Unit, ErrorHandler> {
-        return SaveOrUpdateUtils.updateCustomDex(userId) {
-            it.secondFilterList = filter
+    override suspend fun invoke(userId: String,  filter: List<String>) {
+        return SaveOrUpdateUtils(getCustomDex, saveCustomDex).updateCustomDex(userId) {
+            it.second_filter_list = filter
         }
     }
 }

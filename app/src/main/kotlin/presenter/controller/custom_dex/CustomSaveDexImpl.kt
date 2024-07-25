@@ -5,8 +5,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import presenter.controller.handleErrors
-import utils.Result
+import presenter.controller.handleRequest
+import utils.Constants
 import javax.inject.Inject
 
 class CustomSaveDexImpl @Inject constructor(
@@ -19,56 +19,56 @@ class CustomSaveDexImpl @Inject constructor(
 ) : CustomSaveDex {
 
     override suspend fun saveCustomDexName(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val name = call.receive<String>()
-        when (val result = saveOrUpdateCustomDexName(userId, name)) {
-            is Result.Success -> call.respond(HttpStatusCode.NoContent)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val name = call.receive<String>()
+            saveOrUpdateCustomDexName(userId, name)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun saveFirstFilterList(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val filters = call.receive<List<String>>()
-        when (val result = saveOrUpdateFirstFilterList(userId, filters)) {
-            is Result.Success -> call.respond(HttpStatusCode.NoContent)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val filters = call.receive<List<String>>()
+            saveOrUpdateFirstFilterList(userId, filters)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun savePkmCatch(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val pkm = call.receive<List<String>>()
-        when (val result = saveOrUpdatePkmCatch(userId, pkm)) {
-            is Result.Success -> call.respond(HttpStatusCode.NoContent)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val pkm = call.receive<List<String>>()
+            saveOrUpdatePkmCatch(userId, pkm)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun savePkmList(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val pkm = call.receive<List<String>>()
-        when (val result = saveOrUpdatePkmList(userId, pkm)) {
-            is Result.Success -> call.respond(HttpStatusCode.NoContent)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val pkm = call.receive<List<String>>()
+            saveOrUpdatePkmList(userId, pkm)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun saveSecondFilterList(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val filter = call.receive<List<String>>()
-        when (val result = saveOrUpdateSecondFilterList(userId, filter)) {
-            is Result.Success -> call.respond(HttpStatusCode.NoContent)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val filter = call.receive<List<String>>()
+            saveOrUpdateSecondFilterList(userId, filter)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun saveSecondFilterName(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val name = call.receive<String>()
-        when (val result = saveOrUpdateSecondFilterName(userId, name)) {
-            is Result.Success -> call.respond(HttpStatusCode.NoContent)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val name = call.receive<String>()
+            saveOrUpdateSecondFilterName(userId, name)
+            HttpStatusCode.NoContent
         }
     }
 }

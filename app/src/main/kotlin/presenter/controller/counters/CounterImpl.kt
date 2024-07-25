@@ -6,30 +6,30 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import presenter.controller.handleErrors
-import utils.Result
+import presenter.controller.handleRequest
+import utils.Constants
 import javax.inject.Inject
 
 typealias ModelCounter = domain.models.Counter
+
 class CounterImpl @Inject constructor(
     private val getCounter: GetCounters,
     private val saveOrUpdateCounters: SaveOrUpdateCounters,
 ) : Counter {
 
     override suspend fun getCounter(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        when (val result = getCounter(userId)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+                val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+                getCounter(userId)
         }
     }
 
     override suspend fun saveOrUpdateCounter(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val counters = call.receive<List<ModelCounter>>()
-        when (val result = saveOrUpdateCounters(userId, counters)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val counters = call.receive<List<ModelCounter>>()
+            saveOrUpdateCounters(userId, counters)
+            HttpStatusCode.NoContent
         }
     }
 }

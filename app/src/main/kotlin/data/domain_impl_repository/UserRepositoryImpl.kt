@@ -1,12 +1,9 @@
 package data.domain_impl_repository
 
 import data.db.factory.RepositoryFactoryProvider
-import data.db.handleOperationWithErrorCode
-import domain.error.ErrorHandler
 import domain.models.User
 import domain.use_cases.user.*
 import utils.Constants
-import utils.UtilsResult
 
 internal class UserRepositoryImpl :
     DeleteUserByIdImpl.UserRepository,
@@ -19,33 +16,13 @@ internal class UserRepositoryImpl :
     private val repositoryFactory = RepositoryFactoryProvider.getFactory(Constants.DATABASE)
     private val repository = repositoryFactory.createUserRepository()
 
-    override suspend fun deleteUserById(userId: String): UtilsResult<Unit, ErrorHandler> {
-        return handleOperationWithErrorCode {
-            repository.delete(userId)
-        }
-    }
+    override suspend fun deleteUserById(userId: String) = repository.delete(userId)
 
-    override suspend fun getAll(): UtilsResult<List<User>, ErrorHandler> {
-        return handleOperationWithErrorCode {
-            repository.getAll()
-        }
-    }
+    override suspend fun getAll() : List<User> = repository.getAll()
 
-    override suspend fun getUserById(userId: String): UtilsResult<User, ErrorHandler> {
-        return handleOperationWithErrorCode {
-            repository.get(userId)
-        }
-    }
+    override suspend fun getUserById(userId: String): User = repository.get(userId)
 
-    override suspend fun save(user: User): UtilsResult<Unit, ErrorHandler> {
-        return handleOperationWithErrorCode {
-            repository.save(user)
-        }
-    }
+    override suspend fun save(user: User) = repository.save(user)
 
-    override suspend fun updateUser(userId: String, user: User): UtilsResult<Unit, ErrorHandler> {
-        return handleOperationWithErrorCode {
-            repository.update(userId, user)
-        }
-    }
+    override suspend fun updateUser(userId: String, user: User) = repository.update(userId, user)
 }

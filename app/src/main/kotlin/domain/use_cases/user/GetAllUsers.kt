@@ -1,11 +1,9 @@
 package domain.use_cases.user
 
-import domain.error.ErrorHandler
 import domain.models.User
-import utils.UtilsResult
 
 fun interface GetAllUsers {
-    suspend operator fun invoke(): UtilsResult<List<User>, ErrorHandler>
+    suspend operator fun invoke(): List<User>
 }
 
 internal class GetAllUserImpl(
@@ -13,8 +11,8 @@ internal class GetAllUserImpl(
 ) : GetAllUsers {
 
     fun interface UserRepository {
-        suspend fun getAll(): UtilsResult<List<User>, ErrorHandler>
+        suspend fun getAll(): List<User>
     }
 
-    override suspend fun invoke(): UtilsResult<List<User>, ErrorHandler> = userRepository.getAll()
+    override suspend fun invoke(): List<User> = userRepository.getAll()
 }

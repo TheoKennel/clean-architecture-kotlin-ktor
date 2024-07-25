@@ -1,11 +1,9 @@
 package domain.use_cases.counters
 
-import domain.error.ErrorHandler
 import domain.models.Counter
-import utils.UtilsResult
 
 fun interface GetCounters {
-    suspend operator fun invoke(userId: String): UtilsResult<List<Counter>, ErrorHandler>
+    suspend operator fun invoke(userId: String): List<Counter>
 }
 
 internal class GetCountersImpl(
@@ -14,8 +12,8 @@ internal class GetCountersImpl(
 
     fun interface CounterRepository {
 
-        suspend fun get(userId: String): UtilsResult<List<Counter>, ErrorHandler>
+        suspend fun get(userId: String): List<Counter>
     }
 
-    override suspend fun invoke(userId: String): UtilsResult<List<Counter>, ErrorHandler> = counterRepository.get(userId)
+    override suspend fun invoke(userId: String): List<Counter> = counterRepository.get(userId)
 }
