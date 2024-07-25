@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.9.0"
     kotlin("plugin.serialization") version "1.9.0"
@@ -18,6 +16,8 @@ val kotlinVersion = "1.9.0"
 val firebaseVersion = "8.1.0"
 val dotenvVersion = "5.2.2"
 val gsonVersion = "2.11.0"
+val junitVersion = "5.10.2"
+val mockitoCoreVersion = "5.12.0"
 
 dependencies {
     // coroutine
@@ -33,19 +33,28 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-config-yaml:$ktorVersion")
     implementation("io.ktor:ktor-serialization-gson:$ktorVersion")
-    // tests
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
     // firebase
     implementation("com.google.firebase:firebase-admin:$firebaseVersion")
-    //dotenv
+    // dotenv
     implementation("io.github.cdimascio:java-dotenv:$dotenvVersion")
+    // tests
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
+    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
+    testImplementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("org.mockito:mockito-core:$mockitoCoreVersion")
 }
 
 kapt {
     correctErrorTypes = true
 }
+//
+//application {
+//    mainClass.set("MainKt")
+//}
 
-application {
-    mainClass.set("MainKt")
+tasks.test {
+    useJUnitPlatform()
 }

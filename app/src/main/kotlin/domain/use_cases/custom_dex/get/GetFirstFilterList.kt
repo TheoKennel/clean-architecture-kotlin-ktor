@@ -1,21 +1,17 @@
 package domain.use_cases.custom_dex.get
 
-import domain.error.ErrorHandler
-import utils.Result
-import utils.UtilsResult
-
 fun interface GetFirstFilterList {
-    suspend operator fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler>
+    suspend operator fun invoke(userId: String): List<String>
 }
 
 internal class GetFirstFilterListImpl(
     private val get: GetCustomDex,
 ) : GetFirstFilterList {
 
-    override suspend fun invoke(userId: String): UtilsResult<List<String>, ErrorHandler> {
-        return when (val result = get.invoke(userId)) {
-            is Result.Success -> Result.Success(result.value.firstFilterList)
-            is Result.Error -> Result.Error(result.error ?: ErrorHandler.UnknownError("Unknown Error"))
-        }
+    override suspend fun invoke(userId: String): List<String> {
+            val result = get.invoke(userId)
+        println("result in first filter = $result")
+        println("result first filter list = ${result.first_filter_list}")
+            return result.first_filter_list
     }
 }

@@ -4,11 +4,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CustomDex(
-    var firstFilterList: List<String>,
-    val firstFilterName : List<String>,
-    var name: String,
-    var pkmCatch: List<String>,
-    var pkmList: List<String>,
-    var secondFilterList: List<String>,
-    var secondFilterName: String
+    var first_filter_list: List<String> = emptyList(),
+    val first_filter_name : String = "",
+    var name: String = "",
+    var pkm_catch: List<String> = emptyList(),
+    var pkm_list: List<String> = emptyList(),
+    var second_filter_list: List<String> = emptyList(),
+    var second_filter_name: String = ""
 )

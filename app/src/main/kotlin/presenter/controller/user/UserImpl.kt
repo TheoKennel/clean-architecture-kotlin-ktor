@@ -5,9 +5,8 @@ import domain.use_cases.user.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
-import io.ktor.server.response.*
-import presenter.controller.handleErrors
-import utils.Result
+import presenter.controller.handleRequest
+import utils.Constants
 import javax.inject.Inject
 
 class UserImpl @Inject constructor(
@@ -19,42 +18,40 @@ class UserImpl @Inject constructor(
 ) : UserController {
 
     override suspend fun deleteUser(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        when (val result = deleteUserById(userId)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            deleteUserById(userId)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun getUsers(call: ApplicationCall) {
-        when (val result = getAllUsers()) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            getAllUsers()
         }
     }
 
     override suspend fun getUserById(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        when (val result = getUserById(userId)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            getUserById(userId)
         }
     }
 
     override suspend fun save(call: ApplicationCall) {
-        val user = call.receive<User>()
-        when (val result = saveUser(user)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val user = call.receive<User>()
+            saveUser(user)
+            HttpStatusCode.NoContent
         }
     }
 
     override suspend fun update(call: ApplicationCall) {
-        val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-        val user = call.receive<User>()
-        when (val result = updateUserById(userId, user)) {
-            is Result.Success -> call.respond(result.value)
-            is Result.Error -> handleErrors(call, result.value)
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val user = call.receive<User>()
+            updateUserById(userId, user)
+            HttpStatusCode.NoContent
         }
     }
 }
