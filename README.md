@@ -1,4 +1,4 @@
-# Backend Clean Architecture with Ktor and Firebase
+# Backend Clean Architecture Kotlin / Ktor 
 
 This project is a backend application built using Ktor, following Clean Architecture principles and integrating Firebase as the database. The project is designed with a factory pattern to support multiple databases. You can easily switch the database by changing the value of `DATABASE` in `utils/constants` to the desired database type and then init the good one in KtorApplication.
 
