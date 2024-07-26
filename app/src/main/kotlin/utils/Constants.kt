@@ -7,6 +7,7 @@ object Constants {
 
     // RESPONSE
     const val USER_ID_MISSING = "User Id missing"
+    const val DEX_NAME_MISSING = "Custom dex name missing"
 
     // DATABASE REFERENCE FIREBASE
     const val DB_CUSTOM_DEX = "custom_dex"

@@ -3,7 +3,7 @@ package domain.use_cases.custom_dex.save
 import domain.models.CustomDex
 
 fun interface SaveOrUpdateCustomDex {
-    suspend operator fun invoke(userId: String, customDex: CustomDex)
+    suspend operator fun invoke(userId: String, dexName: String, customDex: CustomDex)
 }
 
 internal class SaveOrUpdateCustomDexImpl(
@@ -11,7 +11,7 @@ internal class SaveOrUpdateCustomDexImpl(
 ) : SaveOrUpdateCustomDex {
 
     fun interface SaveOrUpdateCustomDexRepository {
-        suspend fun save(userId: String, customDex: CustomDex)
+        suspend fun save(userId: String, dexName: String, customDex: CustomDex)
     }
-        override suspend fun invoke(userId: String, customDex: CustomDex) = repository.save(userId, customDex)
+        override suspend fun invoke(userId: String, dexName: String, customDex: CustomDex) = repository.save(userId, dexName, customDex)
 }

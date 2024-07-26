@@ -1,8 +1,6 @@
 package data.db.db_repository
 
-import domain.error.ErrorHandler
 import domain.models.User
-import utils.UtilsResult
 
 interface UserRepository  {
     suspend fun get(userId: String): User

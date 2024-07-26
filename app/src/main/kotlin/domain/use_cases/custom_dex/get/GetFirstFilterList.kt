@@ -1,17 +1,15 @@
 package domain.use_cases.custom_dex.get
 
 fun interface GetFirstFilterList {
-    suspend operator fun invoke(userId: String): List<String>
+    suspend operator fun invoke(userId: String, dexName: String): List<String>
 }
 
 internal class GetFirstFilterListImpl(
-    private val get: GetCustomDex,
+    private val get: GetCustomDexByName,
 ) : GetFirstFilterList {
 
-    override suspend fun invoke(userId: String): List<String> {
-            val result = get.invoke(userId)
-        println("result in first filter = $result")
-        println("result first filter list = ${result.first_filter_list}")
+    override suspend fun invoke(userId: String, dexName: String): List<String> {
+            val result = get.invoke(userId, dexName)
             return result.first_filter_list
     }
 }
