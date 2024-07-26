@@ -14,6 +14,14 @@ internal class CustomDexGetModule {
 
     @Provides
     @Singleton
+    fun provideGetCustomDexByName(
+        repository: CustomDexRepositoryImpl
+    ) : GetCustomDexByName {
+        return GetCustomDexByNameImpl(repository)
+    }
+
+    @Provides
+    @Singleton
     fun provideGetCustomDex(
         repository : CustomDexRepositoryImpl
     ) : GetCustomDex {
@@ -23,7 +31,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetFirstFilterList(
-        getCustomDex: GetCustomDex
+        getCustomDex: GetCustomDexByName
     ) : GetFirstFilterList {
         return GetFirstFilterListImpl(getCustomDex)
     }
@@ -31,7 +39,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetPkmCatch(
-        getCustomDex: GetCustomDex
+        getCustomDex: GetCustomDexByName
     ) : GetPkmCatch {
         return GetPkmCatchImpl(getCustomDex)
     }
@@ -39,7 +47,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetPkmList(
-        getCustomDex: GetCustomDex
+        getCustomDex: GetCustomDexByName
     ) : GetPkmList {
         return GetPkmListImpl(getCustomDex)
     }
@@ -47,7 +55,7 @@ internal class CustomDexGetModule {
     @Provides
     @Singleton
     fun provideGetSecondFilterList(
-        getCustomDex: GetCustomDex
+        getCustomDex: GetCustomDexByName
     ) : GetSecondFilterList {
         return GetSecondFilterListImpl(getCustomDex)
     }

@@ -40,8 +40,9 @@ class UserImpl @Inject constructor(
 
     override suspend fun save(call: ApplicationCall) {
         handleRequest(call) {
-            val user = call.receive<User>()
-            saveUser(user)
+            val userRequest = call.receive<User>()
+            require(userRequest.id.isNotBlank()) { "User ID cannot be null or empty" }
+            saveUser(userRequest)
             HttpStatusCode.NoContent
         }
     }

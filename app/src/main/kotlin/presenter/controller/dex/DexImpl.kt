@@ -7,6 +7,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import presenter.controller.handleRequest
+import presenter.request.MainDexRequest
 import javax.inject.Inject
 
 class DexImpl @Inject constructor(
@@ -24,8 +25,8 @@ class DexImpl @Inject constructor(
     override suspend fun saveMainDex(call: ApplicationCall) {
         handleRequest(call) {
             val userId = call.parameters["id"] ?: return call.respond(HttpStatusCode.BadRequest)
-            val dex = call.receive<List<String>>()
-            saveOrUpdateMainDex(userId, dex)
+            val dex = call.receive<MainDexRequest>()
+            saveOrUpdateMainDex(userId, dex.main_dex_catch)
             HttpStatusCode.NoContent
         }
     }

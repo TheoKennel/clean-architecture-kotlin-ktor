@@ -7,6 +7,7 @@ import domain.use_cases.counters.GetCounters
 import domain.use_cases.counters.GetCountersImpl
 import domain.use_cases.counters.SaveOrUpdateCounters
 import domain.use_cases.counters.SaveOrUpdateCountersImpl
+import domain.use_cases.user.GetUserById
 import javax.inject.Singleton
 
 @Module
@@ -15,9 +16,10 @@ internal class CountersDomainModule {
     @Provides
     @Singleton
     fun provideGetCounters(
-        repository: CounterRepositoryImpl
+        repository: CounterRepositoryImpl,
+        getUserById: GetUserById,
     ) : GetCounters {
-        return GetCountersImpl(repository)
+        return GetCountersImpl(repository, getUserById)
     }
 
     @Provides

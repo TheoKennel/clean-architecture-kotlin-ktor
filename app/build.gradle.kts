@@ -33,6 +33,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-config-yaml:$ktorVersion")
     implementation("io.ktor:ktor-serialization-gson:$ktorVersion")
+    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
     // firebase
     implementation("com.google.firebase:firebase-admin:$firebaseVersion")
     // dotenv

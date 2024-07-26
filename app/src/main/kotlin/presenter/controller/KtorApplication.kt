@@ -1,21 +1,40 @@
 package presenter.controller
 
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonParseException
+import com.google.gson.JsonSyntaxException
 import di.AppComponent
 import di.DaggerAppComponent
 import io.ktor.serialization.gson.*
+import io.ktor.http.*
+import io.ktor.serialization.gson.gson
+import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.text.DateFormat
+import kotlinx.serialization.json.Json
 
 fun main() {
-    println("Hello World!")
     embeddedServer(Netty, port = 8080, module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
+    install(StatusPages) {
+        exception<JsonSyntaxException> { call, cause ->
+            call.respond(HttpStatusCode.BadRequest, "Invalid JSON format: ${cause.localizedMessage}")
+        }
+        exception<IllegalArgumentException> { call, cause ->
+            call.respond(HttpStatusCode.BadRequest, cause.message ?: "Invalid argument")
+        }
+        exception<Throwable> { call, cause ->
+            call.respond(HttpStatusCode.InternalServerError, cause.message ?: "Internal server error")
+        }
+    }
+
     val appComponent = DaggerAppComponent.create()
     appComponent.getFirebaseInitialize()
     configureSerialization()
@@ -29,11 +48,14 @@ fun Application.module() {
 
 fun Application.configureSerialization() {
     install(ContentNegotiation) {
-        gson {
-            setPrettyPrinting()
-            setDateFormat(DateFormat.LONG)
-            serializeNulls()
-        }
+        json(
+            Json {
+                ignoreUnknownKeys = false
+                isLenient = false
+                prettyPrint = true
+                encodeDefaults = true
+            }
+        )
     }
 }
 
@@ -62,19 +84,23 @@ fun Application.configureCustomGetDexRoutes(appComponent: AppComponent) {
                 controller.getCustomDex(call)
             }
 
-            get("/{id}/first-filter-list") {
+            get("/{id}/{name}") {
+                controller.getCustomDexByName(call)
+            }
+
+            get("/{id}/{name}/first-filter-list") {
                 controller.getFirstFilterList(call)
             }
 
-            get("/{id}/pkm-catch") {
+            get("/{id}/{name}/pkm-catch") {
                 controller.getPkmCatch(call)
             }
 
-            get("/{id}/pkm-list") {
+            get("/{id}/{name}/pkm-list") {
                 controller.getPkmList(call)
             }
 
-            get("/{id}/second-filter-list") {
+            get("/{id}/{name}/second-filter-list") {
                 controller.getSecondFilterList(call)
             }
         }
@@ -86,27 +112,31 @@ fun Application.configureCustomSaveDexRoutes(appComponent: AppComponent) {
     routing {
         route("/custom-dex/save") {
 
-            patch("/name/{id}") {
+            patch("/name/{id}/{name}") {
                 controller.saveCustomDexName(call)
             }
 
-            patch("/first-filter/{id}") {
+            patch("/first-filter/{id}/{name}") {
                 controller.saveFirstFilterList(call)
             }
 
-            patch("/pkm-catch/{id}") {
+            patch("/first-filter-name/{id}/{name}") {
+                controller.saveFirstFilterListName(call)
+            }
+
+            patch("/pkm-catch/{id}/{name}") {
                 controller.savePkmCatch(call)
             }
 
-            patch("/pkm-list/{id}") {
+            patch("/pkm-list/{id}/{name}") {
                 controller.savePkmList(call)
             }
 
-            patch("/second-filter-list/{id}") {
+            patch("/second-filter-list/{id}/{name}") {
                 controller.saveSecondFilterList(call)
             }
 
-            patch("/second-filter-name/{id}") {
+            patch("/second-filter-name/{id}/{name}") {
                 controller.saveSecondFilterName(call)
             }
         }
@@ -171,5 +201,23 @@ fun Application.configureUserRoutes(appComponent: AppComponent) {
                 controller.update(call)
             }
         }
+    }
+}
+
+fun strictDeserializer(): JsonDeserializer<Any> {
+    return JsonDeserializer { json, typeOfT, context ->
+        val jsonObject = json.asJsonObject
+
+        val tempObject = context.deserialize<Any>(json, typeOfT)
+
+        val expectedFields = tempObject.javaClass.declaredFields.map { it.name }.toSet()
+        val actualFields = jsonObject.keySet()
+
+        val unknownFields = actualFields - expectedFields
+        if (unknownFields.isNotEmpty()) {
+            throw JsonParseException("Unknown fields: $unknownFields")
+        }
+
+        tempObject
     }
 }

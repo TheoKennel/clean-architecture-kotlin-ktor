@@ -7,6 +7,7 @@ import domain.use_cases.shiny_catch.GetShiny
 import domain.use_cases.shiny_catch.GetShinyImpl
 import domain.use_cases.shiny_catch.SaveOrUpdateShiny
 import domain.use_cases.shiny_catch.SaveOrUpdateShinyImpl
+import domain.use_cases.user.GetUserById
 import javax.inject.Singleton
 
 @Module
@@ -16,8 +17,9 @@ internal class ShinyCatchModule {
     @Singleton
     fun provideGetShiny(
         repository: ShinyRepositoryImpl,
-    ) : GetShiny {
-        return GetShinyImpl(repository)
+        getUserById: GetUserById,
+        ) : GetShiny {
+        return GetShinyImpl(repository, getUserById)
     }
 
     @Provides

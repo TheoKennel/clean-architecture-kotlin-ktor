@@ -9,4 +9,5 @@ interface CustomSaveDex {
     suspend fun savePkmList(call: ApplicationCall)
     suspend fun saveSecondFilterList(call: ApplicationCall)
     suspend fun saveSecondFilterName(call: ApplicationCall)
+    suspend fun saveFirstFilterListName(call: ApplicationCall)
 }

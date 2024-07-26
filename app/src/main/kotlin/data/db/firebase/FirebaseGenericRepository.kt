@@ -1,12 +1,14 @@
 package data.db.firebase
 
 import com.google.firebase.database.*
+import domain.models.CustomDex
+import utils.Constants
 import javax.inject.Singleton
 
 @Singleton
 class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
 
-    private val userReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("User")
+    private val userReference: DatabaseReference = FirebaseDatabase.getInstance().getReference(Constants.DB_USER)
 
     fun getAll(callback: (List<T>?, Exception?) -> Unit) {
         fetchFromFirebase(userReference, ::parseListValue, callback)
@@ -75,19 +77,83 @@ class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
             })
     }
 
-    fun saveChildOfChild(parentId: String, firstChildPath: String, secondChildId: String, item: T, callback: (Boolean, Exception?) -> Unit) {
+    fun saveChildOfChildByDexName(
+        parentId: String,
+        firstChildPath: String,
+        secondChildId: String,
+        item: T,
+        dexName: String,
+        callback: (Boolean, Exception?) -> Unit
+    ) {
         val ref = userReference.child(parentId).child(firstChildPath).child(secondChildId)
-        saveWithValueEventListener(ref, item, callback)
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (child in snapshot.children) {
+                    val existingItem = child.getValue(clazz)
+                    if (existingItem != null && (existingItem as CustomDex).name == dexName) {
+                        child.ref.setValue(item) { error, _ ->
+                            if (error != null) {
+                                callback(false, error.toException())
+                            } else {
+                                callback(true, null)
+                            }
+                        }
+                        return
+                    }
+                }
+                callback(false, Exception("No matching item found for dexName: $dexName"))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(false, error.toException())
+            }
+        })
     }
+
 
     fun getChild(userId : String, childPath: String, callback: (T?, Exception?) -> Unit) {
         val ref = userReference.child(userId).child(childPath)
         fetchFromFirebase(ref, ::parseSingleValue, callback)
     }
 
-    fun getChildOfChild(userId : String, childPath: String, secondChildPath: String, callback: (T?, Exception?) -> Unit) {
+    fun getChildOfChildList(userId : String, childPath: String, secondChildPath: String, callback: (List<T>?, Exception?) -> Unit) {
         val ref = userReference.child(userId).child(childPath).child(secondChildPath)
-        fetchFromFirebase(ref, ::parseSingleValue, callback)
+        fetchFromFirebase(ref, ::parseListValue, callback)
+    }
+
+    fun getCustomDexByDexName(
+        userId: String,
+        childPath: String,
+        secondChildId: String,
+        dexName: String,
+        callback: (T?, Exception?) -> Unit
+    ) {
+        val ref = userReference.child(userId).child(childPath).child(secondChildId)
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                try {
+                    var result: T? = null
+                    for (child in snapshot.children) {
+                        val item = child.getValue(clazz)
+                        if (item != null && item is CustomDex && item.name == dexName) {
+                            result = item
+                            break
+                        }
+                    }
+                    if (result != null) {
+                        callback(result, null)
+                    } else {
+                        callback(null, Exception("No matching item found for dexName: $dexName"))
+                    }
+                } catch (e: Exception) {
+                    callback(null, e)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                callback(null, error.toException())
+            }
+        })
     }
 
     fun getChildList(userId : String, childPath: String, callback: (List<T>?, Exception?) -> Unit) {
@@ -112,9 +178,15 @@ class FirebaseGenericRepository<T>(private val clazz: Class<T>) {
         })
     }
 
-    private fun parseSingleValue(dataSnapshot: DataSnapshot): T? = dataSnapshot.getValue(clazz)
+    private fun parseSingleValue(dataSnapshot: DataSnapshot): T? {
+        println("parSingleValue = ${dataSnapshot.getValue(clazz)}")
+        return dataSnapshot.getValue(clazz)
+    }
 
     private fun parseListValue(dataSnapshot: DataSnapshot) : List<T> {
+        require(dataSnapshot.exists()) {  error("No data found for $clazz") }
+        dataSnapshot.getValue(clazz)
+        println("parListValue = ${dataSnapshot.getValue(clazz)}")
         val items = mutableListOf<T>()
         for (child in dataSnapshot.children) {
             val item = child.getValue(clazz)

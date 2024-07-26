@@ -12,6 +12,7 @@ class CustomGetDexImpl @Inject constructor(
     private val getPkmCatch: GetPkmCatch,
     private val getPkmList: GetPkmList,
     private val getSecondFilterList: GetSecondFilterList,
+    private val getCustomDexByName: GetCustomDexByName
 ) : CustomDex {
 
     override suspend fun getCustomDex(call: ApplicationCall) {
@@ -21,31 +22,43 @@ class CustomGetDexImpl @Inject constructor(
         }
     }
 
+    override suspend fun getCustomDexByName(call: ApplicationCall) {
+        handleRequest(call) {
+            val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
+            val dexByName = call.parameters["name"] ?: throw IllegalArgumentException(Constants.DEX_NAME_MISSING)
+            getCustomDexByName(userId, dexByName)
+        }
+    }
+
     override suspend fun getFirstFilterList(call: ApplicationCall) {
         handleRequest(call) {
             val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
-            getFirstFilterList(userId)
+            val dexByName = call.parameters["name"] ?: throw IllegalArgumentException(Constants.DEX_NAME_MISSING)
+            getFirstFilterList(userId, dexByName)
         }
     }
 
     override suspend fun getPkmCatch(call: ApplicationCall) {
         handleRequest(call) {
             val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
-            getPkmCatch(userId)
+            val dexByName = call.parameters["name"] ?: throw IllegalArgumentException(Constants.DEX_NAME_MISSING)
+            getPkmCatch(userId, dexByName)
         }
     }
 
     override suspend fun getPkmList(call: ApplicationCall) {
         handleRequest(call) {
             val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
-            getPkmList(userId)
+            val dexByName = call.parameters["name"] ?: throw IllegalArgumentException(Constants.DEX_NAME_MISSING)
+            getPkmList(userId, dexByName)
         }
     }
 
     override suspend fun getSecondFilterList(call: ApplicationCall) {
         handleRequest(call) {
             val userId = call.parameters["id"] ?: throw IllegalArgumentException(Constants.USER_ID_MISSING)
-            getSecondFilterList(userId)
+            val dexByName = call.parameters["name"] ?: throw IllegalArgumentException(Constants.DEX_NAME_MISSING)
+            getSecondFilterList(userId, dexByName)
         }
     }
 }
