@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "2224025c-ec43-457d-a7b5-5477eaae7369",
+		"name": "back-clean-ktor-poke",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26803651"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getAllUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/user"
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/user/ak1"
+					},
+					"response": []
+				},
+				{
+					"name": "saveUser",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n  \"counters54\": [],\r\n  \"dex\": {\r\n    \"custom_dex\": [],\r\n    \"main_dex_catch\": []\r\n  },\r\n  \"id\": \"5\",\r\n  \"shiny_catch\": []\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Counter",
+			"item": [
+				{
+					"name": "getCounterById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/counters/ak"
+					},
+					"response": []
+				},
+				{
+					"name": "patchCounter",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"count\": 10,\r\n  \"method\": 2,\r\n  \"name\": \"Bulbasaur\",\r\n  \"regional_form\": 1,\r\n  \"regional_subform\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/counters/ak"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shiny",
+			"item": [
+				{
+					"name": "getShiny",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/shiny/ak"
+					},
+					"response": []
+				},
+				{
+					"name": "patchShiny",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"name\": \"Rattatac\",\r\n        \"regional_form\": 1,\r\n        \"regional_subform\": 0\r\n    },\r\n     {\r\n        \"name\": \"RattatacTATAC\",\r\n        \"regional_form\": 1,\r\n        \"regional_subform\": 0\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/shiny/ak"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dex",
+			"item": [
+				{
+					"name": "getDEx",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/dex/ak"
+					},
+					"response": []
+				},
+				{
+					"name": "patchDex",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\"main_dex_catch\": [\r\n        \"Forgelina\", \"astrd\"\r\n    ]\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/dex/ak"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CustomDex",
+			"item": [
+				{
+					"name": "getCustomDex",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getFirstFilterList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/custom-dex/get/ak/pkm-list"
+					},
+					"response": []
+				},
+				{
+					"name": "saveDexName",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
